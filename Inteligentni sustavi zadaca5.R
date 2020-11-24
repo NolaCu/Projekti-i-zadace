@@ -2,7 +2,7 @@ library(ggplot2)
 library(lattice)
 library(plotly)
 
-#Grafikon svih dr�ava
+#Grafikon svih drava
 drzava<-baza$Drzava
 drzava
 zarazeni<-baza$Zarazeni
@@ -10,8 +10,8 @@ zarazeni
 izljeceni<-baza$Izljeceni
 umrli<-baza$Umrli
 podaci<-data.frame(drzava,zarazeni,izljeceni,umrli)
-fig<-plot_ly(podaci,x=~drzava, y=~zarazeni,type='bar',name="Zaraženi virusom")
-fig<-fig%>%add_trace(y=~izljeceni,name="Izlječeni od virusa")
+fig<-plot_ly(podaci,x=~drzava, y=~zarazeni,type='bar',name="ZaraÅ¾eni virusom")
+fig<-fig%>%add_trace(y=~izljeceni,name="IzljeÄeni od virusa")
 fig<-fig%>%add_trace(y=~umrli,name="Umrli od virusa")
 fig<-fig%>%layout(yaxis=list(title="Broj"),barmode="group")
 fig
@@ -25,8 +25,8 @@ izljeceni<-baza$Izljeceni[6]
 umrli<-baza$Umrli[6]
 umrli
 data<-data.frame(hrv,zarazeni,izljeceni,umrli)
-fig<-plot_ly(data,x=~hrv, y=~zarazeni,type='bar',name="Zaraženi virusom")
-fig<-fig%>%add_trace(y=~izljeceni,name="Izlječeni od virusa")
+fig<-plot_ly(data,x=~hrv, y=~zarazeni,type='bar',name="ZaraÅ¾eni virusom")
+fig<-fig%>%add_trace(y=~izljeceni,name="IzljeÄeni od virusa")
 fig<-fig%>%add_trace(y=~umrli,name="Umrli od virusa")
 fig<-fig%>%layout(yaxis=list(title="Broj"),barmode="group")
 fig
@@ -37,8 +37,8 @@ zarazeni<-baza$Zarazeni[8]
 izljeceni<-baza$Izljeceni[8]
 umrli<-baza$Umrli[8]
 itadata<-data.frame(ita,zarazeni,izljeceni,umrli)
-fig<-plot_ly(itadata,x=~ita, y=~zarazeni,type='bar',name="Zaraženi virusom")
-fig<-fig%>%add_trace(y=~izljeceni,name="Izlječeni od virusa")
+fig<-plot_ly(itadata,x=~ita, y=~zarazeni,type='bar',name="ZaraÅ¾eni virusom")
+fig<-fig%>%add_trace(y=~izljeceni,name="IzljeÄeni od virusa")
 fig<-fig%>%add_trace(y=~umrli,name="Umrli od virusa")
 fig<-fig%>%layout(yaxis=list(title="Broj"),barmode="group")
 fig
@@ -58,7 +58,7 @@ plot_ly(
       "25/02","26/02","27/02","28/02","29/02","01/03","02/03","03/03","04/03","05/03","06/03","07/03","08/03","09/03",
       "10/03","11/03","12/03","13/03","14/03","15/03","16/03","17/03","18/03","19/03","20/03","21/03","22/3"),
   y=cro$Value[1:61],
-  name = "Rast zaraženih u hrvatskoj",
+  name = "Rast zaraÅ¾enih u hrvatskoj",
   type="bar") %>%
   layout(xaxis=xform)
 
@@ -77,7 +77,7 @@ plot_ly(
       "25/02","26/02","27/02","28/02","29/02","01/03","02/03","03/03","04/03","05/03","06/03","07/03","08/03","09/03",
       "10/03","11/03","12/03","13/03","14/03","15/03","16/03","17/03","18/03","19/03","20/03","21/03","22/3"),
   y=ita$Value[1:60],
-  name = "Rast zaraženih u italiji",
+  name = "Rast zaraÅ¾enih u italiji",
   type="bar") %>%
   layout(xaxis=xform)
 
