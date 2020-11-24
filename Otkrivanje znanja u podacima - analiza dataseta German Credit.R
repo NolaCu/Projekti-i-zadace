@@ -2,14 +2,14 @@ attach(GermanCredit)
 
 #tribamo skuzit koji parametri su vazni za otkrivanje kriticnih ljudi
 dim(GermanCredit) #dimenzije dataseta
-summary(GermanCredit) #statistiËki podaci o skupu, za svaki stupac 
+summary(GermanCredit) #statistiƒçki podaci o skupu, za svaki stupac 
 head(GermanCredit)
 
 library(corrr)
 
 korelacije=cor(GermanCredit)
 korelacije[,"RESPONSE"] #korelacije s ciljnom varijablom
-# i nisu neke korelacije, najveÊe su redon:
+# i nisu neke korelacije, najveƒáe su redon:
 # CHK_ACC (0.350847483), DURATION (-0.214926665), HISTORY (0.228784733),
 # AMOUNT (-0.154738641), SAV_ACCT (0.178942736),
 # EMPLOYMENT (0.116002036), REAL_ESTATE (0.119299516), PRO_UNKN_NONE (-0.125750044)
@@ -17,10 +17,10 @@ korelacije[,"RESPONSE"] #korelacije s ciljnom varijablom
 
 library(dplyr) 
 # sad idemo izbacit iz dataseta one koje nam ne tribaju,
-# moûemo i u modelu navest konkretno varijable a moûemo i izbacit iz skupa,
+# mo≈æemo i u modelu navest konkretno varijable a mo≈æemo i izbacit iz skupa,
 # ja san izabrala izbacit
 
-#ode selectan sve "vaûne" varijable
+#ode selectan sve "va≈æne" varijable
 GermanCredit = GermanCredit %>%
   select(CHK_ACCT, DURATION, HISTORY, AMOUNT, SAV_ACCT, 
          EMPLOYMENT, REAL_ESTATE, PROP_UNKN_NONE, OTHER_INSTALL, OWN_RES,
@@ -30,16 +30,16 @@ dim(GermanCredit) #imamo 10 nezavisnih varijabli i jednu ciljnu
 
 #vizualizacija
 
-#odnos izmeu chec_acc i response
+#odnos izmeƒëu chec_acc i response
 podaci = data.frame(CHK_ACCT, RESPONSE)
 boja=c("coral3", "chartreuse3")
-mosaicplot(table(podaci), color = boja, main="Odnos izmeu varijable checking account i credit ratinga")
+mosaicplot(table(podaci), color = boja, main="Odnos izmeƒëu varijable checking account i credit ratinga")
 
 #employment i response
 podaci1 = data.frame(EMPLOYMENT, RESPONSE)
-mosaicplot(table(podaci1), color = boja, main="Odnos izmeu varijable employment i credit ratinga")
+mosaicplot(table(podaci1), color = boja, main="Odnos izmeƒëu varijable employment i credit ratinga")
 
-#odnos izmeu duration/history sa response
+#odnos izmeƒëu duration/history sa response
 plot1 <- ggplot(data = GermanCredit, aes(DURATION,HISTORY,colour=RESPONSE)) + geom_point()
 plot1
 
@@ -66,20 +66,20 @@ testiranje = GermanCredit[-indeksi,]
 test_y = GermanCredit$RESPONSE[-indeksi]
 
 
-#LOGISTI»KI MODEL
+#LOGISTIƒåKI MODEL
 library(ISLR)
 logisticki = glm(formula = RESPONSE~., family = "binomial",
                  data = treniranje)
 summary(logisticki)
 # ovako, objasnit cemo summary
-# koeficijent varijable ako je jednak nuli variajbla nije znaËajna
+# koeficijent varijable ako je jednak nuli variajbla nije znaƒçajna
 # ako je veci od nule znaci da kako vrijednost te varijable raste tako raste i vjerojatnost da je response veci, tj.1
 # a ako je manji, tj.. negativan, onda vridi obrnuto
-# u naöem summary-u vidimo da su statisticki znacajne varijable redon:
+# u na≈°em summary-u vidimo da su statisticki znacajne varijable redon:
 # chk_acct, duration, history i sav_acc najvise (imaju 3 zvjezdice)
 # i employment isto sa 2 zvjezdice
 
-#predikcija logistiËkog modela
+#predikcija logistiƒçkog modela
 predikcija_log = predict(logisticki, testiranje, type = "response")
 predikcija_log_y = rep("0", length(test_y))
 predikcija_log_y[predikcija_log > 0.5] = "1"
@@ -87,7 +87,7 @@ predikcija_log_y[predikcija_log > 0.5] = "1"
 #matrica konfuzije
 table(predikcija_log_y, test_y)
 
-#stopa pogreöke klasifikacije
+#stopa pogre≈°ke klasifikacije
 mean(predikcija_log_y!= test_y)
 
 # STABLO ODLUKE
@@ -97,7 +97,7 @@ library(rpart.plot)
 stablo = rpart(RESPONSE~CHK_ACCT+DURATION+HISTORY+SAV_ACCT+EMPLOYMENT, 
                 data = treniranje, method = 'class')
 rpart.plot(stablo, extra = 106)
-# prvi Ëvor ti pokazuje da 71% tih kredita "dobro"
+# prvi ƒçvor ti pokazuje da 71% tih kredita "dobro"
 # onda gledas da li je chk_acct manji od 2, ako nije dobar je a ako je:
 # 53% njih je sa manje od 2 chk_acct sa vjerojatnosti da je kredit dobar od 0.57
 # onda gledas duration da li je veci od 23, i ajmo uzet da je
@@ -105,7 +105,7 @@ rpart.plot(stablo, extra = 106)
 # itd. dok ne dodes do kraja neke odredene grane, znaci postotak koji stoji doli
 # pokazuje koliki je postotak takvih opservacija ukupno i skupu podataka
 # a broj u sredini ti pokazuje vjerojatnost da je kredit dobar, logicno 
-# ako je manji srednji broj od 0.5 da je kvadrat 0, a ako je veÊi da je 1 
+# ako je manji srednji broj od 0.5 da je kvadrat 0, a ako je veƒái da je 1 
 # to je taj gornji broj
 
 #predikcija stabla odluke
@@ -115,9 +115,9 @@ predikcija_stablo = predict(stablo, testiranje, type = 'class')
 matrica <- table(test_y, predikcija_stablo)
 matrica
 
-#test toËnosti
+#test toƒçnosti
 test_tocnosti = sum(diag(matrica)) / sum(matrica)
-print(paste('ToËnost modela iznosi:', test_tocnosti))
+print(paste('Toƒçnost modela iznosi:', test_tocnosti))
 
 #vjerojatnosti
 tree_vj=predict(stablo, newdata=testiranje, type="prob")
@@ -129,10 +129,10 @@ roc_stablo = roc(test_y,tree_vj[,"1"])
 #plot the ROC curve
 plot(roc_stablo,col="blue")
 
-#izraËun podruËja "ispod" krivulje - veÊe je bolje
+#izraƒçun podruƒçja "ispod" krivulje - veƒáe je bolje
 auc(roc_stablo)
 
-#sluËajne öume
+#sluƒçajne ≈°ume
 
 #kontrola - cv
 cv_kontrola = trainControl(method="repeatedcv", number = 10,
@@ -141,14 +141,14 @@ cv_kontrola = trainControl(method="repeatedcv", number = 10,
 stablo_bagg = train(RESPONSE ~ ., data=treniranje, method="treebag",
                     trControl=cv_kontrola, importance=TRUE)
 stablo_bagg
-#vidimo toËnost od pribliûno 0.75 ouuuu jes
+#vidimo toƒçnost od pribli≈æno 0.75 ouuuu jes
 
-#vaûnost varijabli - plot
+#va≈ænost varijabli - plot
 plot(varImp(stablo_bagg))
 
 #predikcija bagg stabla
 bagg_predikcija = predict(stablo_bagg, newdata = testiranje, type="raw")
-confusionMatrix(test_y,bagg_predikcija) #dobijemo toËnost od 77% :)
+confusionMatrix(test_y,bagg_predikcija) #dobijemo toƒçnost od 77% :)
 
 #ROC krivulja i za bagg
 bagg_vj=predict(stablo_bagg, newdata=testiranje,type="prob")
@@ -156,29 +156,29 @@ roc_bagg <- roc(test_y,bagg_vj[,"1"])
 plot(roc_bagg,col="orange")
 auc(roc_bagg)
 
-#SLU»AJNE äUME
+#SLUƒåAJNE ≈†UME
 #mozemo koristit i randomForest paket, al cu s istin ovin
 suma_model <- train(RESPONSE ~ ., data=treniranje, method="rf",
                   trControl=cv_kontrola, importance=TRUE)
 suma_model
-#dobijemo najveÊu toËnost sa mtry = 6 - broj uzoraka koji se koristi za cijepanje svakog Ëvora
+#dobijemo najveƒáu toƒçnost sa mtry = 6 - broj uzoraka koji se koristi za cijepanje svakog ƒçvora
 
 #predikcija
 predikcija_rf = predict(suma_model, newdata = testiranje, type="raw")
-confusionMatrix(test_y, predikcija_rf) #toËnost od ~78%
+confusionMatrix(test_y, predikcija_rf) #toƒçnost od ~78%
 
 #ROC krivulja
 rf_vj = predict(suma_model,newdata=testiranje,type="prob") #predikcija vjerojatnosti
 roc_rf = roc(test_y,rf_vj[,"1"])
 plot(roc_rf,col="red")
-auc(roc_rf) #ukupno podruËje
+auc(roc_rf) #ukupno podruƒçje
 
-#BOOSTING SLU»AJNA äUMA
+#BOOSTING SLUƒåAJNA ≈†UMA
 
 library(gbm)
 # metode koje se mogu koristiti su "ada", "gbm" i "xgbLinear"
-# ovi algoritmi minjaju teûine odreenih varijabli (znaËaj za predikciju)
-#izabrat Êemo gradient boosting jer Ëesto ima bolje performanse od ostalih algoritama
+# ovi algoritmi minjaju te≈æine odreƒëenih varijabli (znaƒçaj za predikciju)
+#izabrat ƒáemo gradient boosting jer ƒçesto ima bolje performanse od ostalih algoritama
 
 boost_model = train(RESPONSE ~ .,data=treniranje,method="gbm",
                    verbose=F,trControl=cv_kontrola)
@@ -194,11 +194,11 @@ auc(roc_gbm)
 
 #usporedba modela
 plot(roc_stablo,col="blue", main = "Usporedba modela") #plava
-plot(roc_bagg,add=TRUE,col="orange") # naranËasta
+plot(roc_bagg,add=TRUE,col="orange") # naranƒçasta
 plot(roc_rf,add=TRUE,col="red") # crvena
 plot(roc_gbm,add=TRUE,col="green") # zelena
 legend("bottomright", inset=.06, title="Tip modela",
-       c("stablo odluke","bagging model","model sluËajne öume", 
+       c("stablo odluke","bagging model","model sluƒçajne ≈°ume", 
          "boosting model"), fill=c("blue", "orange", "red", "green"),
        horiz=FALSE, bty = 'n', y.intersp = 1, pt.cex = 0.5, cex = 0.6)
 
