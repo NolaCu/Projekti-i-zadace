@@ -1,9 +1,9 @@
 library(ISLR)
 library(glmnet)
 library(readr)
-rm(list = ls()) #proèišæavanje workspace-a
+rm(list = ls()) #proÃ¨iÅ¡Ã¦avanje workspace-a
 
-#uèitavanje baze, kreiranje matrice x
+#uÃ¨itavanje baze, kreiranje matrice x
 student = read.csv(url("http://www.odraz.com/student-por.csv"), stringsAsFactors=TRUE, sep=";") 
 attach(student)
 y=G3
@@ -36,7 +36,7 @@ plot(unakrsna)
 najboljalambda = unakrsna$lambda.min
 najboljalambda
 
-#raèunanje MSE pogreÅ¡ke
+#raÃ¨unanje MSE pogreÃ…Â¡ke
 predikcijaridge=predict(modelridge2, s=najboljalambda, newx=x[testiranje,])
 mean((predikcijaridge-y_testiranje)^2)
 
