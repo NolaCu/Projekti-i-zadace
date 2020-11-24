@@ -32,10 +32,10 @@ plot(Auto_model1, i="displacement")
 #predikcija prvog modela
 predikcija1 = predict.gbm(object = Auto_model1, newdata = Auto_testiranje,
                           n.trees = 5000)
-#izraËun toËnosti tj.stope pogreöke
+#izra√®un to√®nosti tj.stope pogre≈°ke
 mean((predikcija1-Auto_testiranje$mpg)^2)
 
-#izrada poboljöanog modela
+#izrada pobolj≈°anog modela
 opt_auto <- gbm.perf(object = Auto_model1, 
                           method = "OOB", 
                           oobag.curve = TRUE)
