@@ -10,10 +10,10 @@ attach(edukacija90)
 podaci=data.frame(stog,grade)
 podaci
 boja=c("red", "yellow","green")
-mosaicplot(table(podaci),color=boja, main="Odnos izmeðu varijable stog i grade")
+mosaicplot(table(podaci),color=boja, main="Odnos izmeÃ°u varijable stog i grade")
 
-#scatter plotovi sa više utjecajnih varijabli
-#utjecaja varijabli videos i stog na konaènu ocjenu studenta
+#scatter plotovi sa viÅ¡e utjecajnih varijabli
+#utjecaja varijabli videos i stog na konaÃ¨nu ocjenu studenta
 fig=plot_ly(data=edukacija90, x=~stog, y=~videos, color=~grade, colors=boja)
 fig
 
@@ -33,7 +33,7 @@ fig
 fig=plot_ly(data=edukacija90, x=~stog, y=~quizzes, color=~grade, colors=boja)
 fig
 
-#logistièka regresija
+#logistiÃ¨ka regresija
 attach(edukacija88)
 
 #priprema podataka za izradu modela
