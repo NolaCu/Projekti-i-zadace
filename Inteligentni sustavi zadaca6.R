@@ -24,7 +24,7 @@ plot(tree.edu)
 text(tree.edu,pretty=0)
 tree.edu
 
-#procjena greške testiranja
+#procjena greÅ¡ke testiranja
 set.seed(4)
 ucenje=sample(1:nrow(edudis), 43)
 test=edudis[-ucenje,]
@@ -51,7 +51,7 @@ tree.pred=predict(prune.edu,test,type="class")
 table(tree.pred,test_grade)
 (10+22)/34
 
-#orezivanje stabla na veæu od najbolje vrijednosti
+#orezivanje stabla na veÃ¦u od najbolje vrijednosti
 prune.edu2=prune.misclass(tree.edu2,best=5)
 tree.pred3=predict(prune.edu2,test,type="class")
 table(tree.pred3,test_grade)
