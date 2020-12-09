@@ -23,7 +23,7 @@ csv_file = open('baranjainfo2.csv', 'w', encoding='utf-8', newline='')
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['Naslov', 'Tekst', 'Datum objave', 'Autor', 'Kategorija'])
 
-# scrapanje svih stranica sa popisa url-a za naslov, sadržaj, datu, autora i kategoriju
+# scrapanje svih stranica sa popisa url-a za naslov, sadržaj, datum, autora i kategoriju
 contents = []
 with open('linkovi.csv','r') as csvf: # Open file in read mode
     urls = csv.reader(csvf)
